@@ -1,0 +1,969 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Manual de Procesos Administrativos · Amigos de Sian Ka'an</title>
+  <style>
+    :root {
+      --bg: ##62eafc;            
+      --card: #caf4fa;
+      --text: #1e293b;          
+      --muted: #64748b;         
+      --accent: #0d9488;        /* Verde Selva / Sian Ka'an */
+      --accent-2: #14b8a6;      
+      --accent-light: #f0fdfa;  
+      --border: #e2e8f0;
+      --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.04);
+      --shadow-md: 0 12px 30px rgba(15, 23, 42, 0.06);
+      --shadow-hover: 0 20px 40px rgba(15, 23, 42, 0.12);
+      --warning: #b45309;
+      --warning-bg: #fffbeb;
+      --warning-border: #fde68a;
+      --info-bg: #f0f6ff;
+      --info-text: #1d4ed8;
+      --info-border: #bfdbfe;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .wrap {
+      width: min(1150px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    /* Encabezado Superior con Efecto de Cristal (Glassmorphism) */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      background: rgba(255, 255, 255, 0.85);
+      border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 12px 0;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand img {
+      height: 48px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .brand span {
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: var(--accent);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    nav {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    nav a, .dropdown-nav > span {
+      text-decoration: none;
+      color: var(--muted);
+      background: transparent;
+      border-radius: 999px;
+      padding: 8px 16px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+    }
+
+    nav a:hover, .dropdown-nav:hover > span {
+      background: var(--accent-light);
+      color: var(--accent);
+    }
+
+    /* Estilos del Menú Desplegable de Navegación (Subíndice) */
+    .dropdown-nav {
+      position: relative;
+      display: inline-block;
+    }
+
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%) translateY(10px);
+      background-color: #ffffff;
+      min-width: 280px;
+      box-shadow: var(--shadow-hover);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      padding: 8px 0;
+      z-index: 200;
+    }
+
+    .dropdown-nav:hover .dropdown-menu {
+      display: block;
+    }
+
+    .dropdown-menu a {
+      display: block;
+      color: var(--text);
+      padding: 10px 20px;
+      border-radius: 0;
+      font-size: 0.82rem;
+      font-weight: 500;
+      text-align: left;
+      transition: background 0.2s ease;
+    }
+
+    .dropdown-menu a:hover {
+      background-color: var(--accent-light);
+      color: var(--accent);
+    }
+
+    /* Héroe de Presentación Imponente */
+    .hero {
+      padding: 40px 0 20px;
+    }
+
+    .hero-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      padding: 40px;
+      box-shadow: var(--shadow-md);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 6px;
+      height: 100%;
+      background: linear-gradient(180deg, var(--accent) 0%, var(--accent-2) 100%);
+    }
+
+    h1 { 
+      font-size: clamp(1.8rem, 4vw, 2.4rem); 
+      margin: 0 0 12px 0; 
+      color: #0f172a; 
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      line-height: 1.2;
+    }
+    
+    h2 { 
+      font-size: 1.75rem; 
+      color: #0f172a; 
+      margin: 45px 0 24px; 
+      padding-bottom: 10px; 
+      border-bottom: 2px solid var(--border); 
+      font-weight: 700;
+      letter-spacing: -0.3px;
+    }
+    
+    h3 { 
+      font-size: 1.25rem; 
+      margin: 0 0 12px 0; 
+      color: var(--accent); 
+      font-weight: 700;
+    }
+    
+    .lead { color: var(--muted); font-size: 1.1rem; margin: 0; font-weight: 400; }
+    main { padding-bottom: 80px; }
+
+    /* Tarjetas Modulares Pulidas */
+    .step-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 32px;
+      margin-bottom: 28px;
+      box-shadow: var(--shadow-md);
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .step-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+      border-color: rgba(13, 148, 136, 0.2);
+    }
+
+    .grid-two {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 32px;
+      align-items: start;
+    }
+
+    .badge {
+      display: inline-block;
+      background: rgba(13, 148, 136, 0.08);
+      color: var(--accent);
+      font-weight: 700;
+      border-radius: 999px;
+      padding: 6px 14px;
+      margin-bottom: 16px;
+      font-size: 0.78rem;
+      letter-spacing: 0.5px;
+    }
+
+    .role-tag {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      color: #475569;
+      padding: 4px 12px;
+      border-radius: 8px;
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+
+    .alert-box {
+      background: var(--warning-bg);
+      border: 1px solid var(--warning-border);
+      color: var(--warning);
+      padding: 18px;
+      border-radius: 16px;
+      margin-top: 14px;
+      font-size: 0.9rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .info-box {
+      background: var(--info-bg);
+      border: 1px solid var(--info-border);
+      color: var(--info-text);
+      padding: 18px;
+      border-radius: 16px;
+      margin-top: 14px;
+      font-size: 0.9rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Menús Desplegables Animados */
+    details {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 16px;
+      margin-top: 14px;
+    }
+    
+    details[open] { 
+      background: var(--card); 
+      box-shadow: inset 0 0 0 1px rgba(13, 148, 136, 0.15), var(--shadow-sm);
+    }
+    
+    summary { 
+      cursor: pointer; 
+      font-weight: 700; 
+      color: var(--accent); 
+      outline: none; 
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    summary::before { 
+      content: '→'; 
+      font-size: 0.9rem; 
+      transition: transform 0.3s;
+      display: inline-block;
+    }
+    
+    details[open] summary::before { 
+      transform: rotate(90deg);
+    }
+    
+    .dropdown-content { 
+      margin-top: 14px; 
+      font-size: 0.92rem; 
+      border-top: 1px dashed var(--border); 
+      padding-top: 14px; 
+    }
+
+    /* Tablas Estilizadas */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 16px;
+      background: var(--card);
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+    }
+    
+    th, td { padding: 14px 20px; text-align: left; font-size: 0.92rem; }
+    
+    th { 
+      background: #f8fafc; 
+      color: #1e293b; 
+      font-weight: 700; 
+      border-bottom: 2px solid var(--border);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    td { border-bottom: 1px solid var(--border); color: #334155; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background-color: #f8fafc; }
+
+    .diagram-container {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 24px;
+      text-align: center;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .diagram-container img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: var(--shadow-md);
+      background-color: white;
+    }
+
+    .fiscal-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .fiscal-card {
+      background: var(--card);
+      padding: 20px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      font-size: 0.9rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .download-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 16px;
+    }
+
+    .download-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 20px;
+      border-radius: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn-download {
+      background: var(--accent);
+      color: #fff;
+      text-decoration: none;
+      padding: 10px 18px;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      box-shadow: 0 4px 12px rgba(13, 148, 136, 0.2);
+    }
+    
+    .btn-download:hover { background: #0f766e; }
+
+    footer {
+      color: var(--muted);
+      text-align: center;
+      padding: 50px 0;
+      font-size: 0.88rem;
+      font-weight: 500;
+      border-top: 1px solid var(--border);
+      background: #ffffff;
+      margin-top: 40px;
+    }
+
+    @media (max-width: 900px) {
+      .grid-two { grid-template-columns: 1fr; gap: 20px; }
+      .topbar { justify-content: center; padding: 16px 0; gap: 12px; }
+      nav { justify-content: center; }
+      .dropdown-menu { position: static; transform: none; box-shadow: none; width: 100%; border: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="wrap topbar">
+      <div class="brand">
+        <img src="logoASK.png" alt="Logo Amigos de Sian Ka'an">
+        <span>MANUAL INTERNO EJECUCIÓN DE PROYECTOS</span>
+      </div>
+      <nav>
+        <a href="#inicio">Inicio</a>
+        
+        <!-- NAVEGACIÓN DE CONTENIDO CON SUBMENÚ INTERACTIVO (SUBINDICE) -->
+        <div class="dropdown-nav">
+          <span>Contenido ▼</span>
+          <div class="dropdown-menu">
+            <a href="#-a">A. Elaboración de TDR y EPAB</a>
+            <a href="#-b">B. Adquisición de Bienes Muebles</a>
+            <a href="#-c">C. Integración de Expedientes</a>
+            <a href="#-d">D. Formalización y Firmas</a>
+            <a href="#-e">E. Protocolo Opinión Negativa</a>
+            <a href="#inciso-f">F. Gestión de Pagos y SURF</a>
+            <a href="#inciso-g">G. Políticas de Control y Viáticos</a>
+          </div>
+        </div>
+
+        
+        <a href="#tabuladores">Tabuladores</a>
+        <a href="#facturacion">Facturación</a>
+        <a href="#anexos">Formatos Anexos</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero" id="inicio">
+    <div class="wrap">
+      <div class="hero-card">
+        <h1>PROCESO ADMINISTRATIVO PARA LA EJCUCIÓN DE PROYECTOS</h1>
+        <p class="lead">Contratación de Servicios, Adquisición de Bienes y Control de Gastos Institucionales</p>
+        
+        <div style="margin-top: 24px; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px;">
+          <div>
+            <h4 style="margin: 0 0 6px 0; color: var(--accent); font-weight: 700; font-size: 1rem;">🎯 Objetivo</h4>
+            <small style="color: var(--muted); font-size: 0.9rem;">Realizar las acciones necesarias para alcanzar la mayor eficiencia en el uso de los recursos de los proyectos, entre las que se encuentran la contratación de servicios y la adquisisción de bienes, obteniendo las mejores condiciones de calidad entre los participantes y oportunidad dentro de un marco de transparencia y legalidad en el manejo de los recursos[cite: 2].</small>
+          </div>
+          <div>
+            <h4 style="margin: 0 0 6px 0; color: var(--accent); font-weight: 700; font-size: 1rem;">🌐 Alcance (Abreviaciones de Referencia)</h4>
+            <div style="margin-top: 4px;">
+              <span class="role-tag">DE: Director Ejecutivo</span> <span class="role-tag">DP: Directora de Programas</span> 
+              <span class="role-tag">CA: Coordinador de Administración</span> <span class="role-tag">CP: Coordinador de Proyectos</span> 
+              <span class="role-tag">AAC: Analista Administrativo Contable</span> <span class="role-tag">AFC: Analista Financiero - Contable</span> 
+              <span class="role-tag">EE: Enlaces Externos</span> <span class="role-tag">EJ: Enlace Jurídico</span> 
+              <span class="role-tag">TP: Técnico de Proyecto</span> <span class="role-tag">AD: Asistente de la Dirección</span> 
+              <span class="role-tag">CDI: Coordinador de Desarrollo Institucional</span> <span class="role-tag">PRO: Profesionista</span> 
+              <span class="role-tag">CPR: Candidato a Profesionista</span> <span class="role-tag">RV: Redes y Vinculación</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main class="wrap">
+    <section id="contenido">
+      <h2>Políticas Operativas</h2>
+
+      <!-- Inciso A -->
+      <div class="step-card" id="inciso-a">
+        <span class="badge">A. Contratación de Prestadores de Servicios</span>
+        <div class="grid-two">
+          <div>
+            <h3>Elaboración de TDR y EPAB (Especificaciones para adquisición de bienes)</h3>
+            <p style="color: var(--muted); margin-top: 0;">El coordinador de proyectos o enlace externo elabora los términos de referencia (TDR) para contratación de profesionistas o las Especificaciones para adquisición de bienes (EPAB) que rebasen los $50,000, basándose en los objetivos y resultados esperados para cada proyecto, en concordancia con el presupuesto aprobado.</p>
+            
+            <div class="alert-box">
+              <strong>Menor a $50,000.00 M.N.:</strong> No se requiere TDR formal ni EPAB, siempre y cuando se cuente con una propuesta técnico-económica que incluya, por lo menos, entregables, resultados y tiempos de entrega, para el caso de prestación de servicios, o de una cotización para el caso de compra de un bien. Los TDR y EPAB especificarán que el candidato a profesionista deberá anexar la siguiente documentación:
+              <br>a. Currículum Vitae o portafolio profesional (Solo para TDR).
+              <br>b. Propuesta técnico-económica o cotización, la cual debe incluir los gastos de viaje, viáticos y hospedaje dentro del presupuesto total.
+            </div>
+
+            <div class="info-box">
+              <strong>Anexo:</strong> En caso de excepción, los gastos de viaje, viáticos y hospedaje se pagarán al profesionista siempre que se encuentren debidamente justificados dentro de las cláusulas del contrato.
+            </div>
+          </div>
+          <div>
+            <details open>
+              <summary>Políticas de Aprobación Críticas</summary>
+              <div class="dropdown-content" style="color: var(--muted); display: flex; flex-direction: column; gap: 8px;">
+                <p style="margin: 0;"><strong>• Montos mayores a $90,000.00 y/o contrataciones mayores a $200,000.00:</strong> Se enviarán EPAB o TDR al director ejecutivo para su revisión y firma de aprobación en un plazo no mayor a 5 días hábiles y debe incluir el nombre de quién elaboró. Los TDR y EPAB de proyectos administrados para otras entidades deberán ser aprobados por el enlace externo y/o coordinador de proyectos.</p>
+                <p style="margin: 0;"><strong>• Convocatorias:</strong> El coordinador de desarrollo institucional o el enlace externo publica una convocatoria abierta en redes sociales durante un mínimo de 3 días hábiles, anexando los TDR y el formato para la presentación de propuestas técnico-económicas.</p>
+              </div>
+            </details>
+          </div>
+        </div>
+      </div>
+
+      <!-- Inciso B -->
+      <div class="step-card" id="inciso-b">
+        <span class="badge">B. Adquisición de Bienes Muebles</span>
+        <div class="grid-two">
+          <div>
+            <h3>Políticas de Compra y Salvaguarda</h3>
+            <p style="color: var(--muted); margin-top: 0;">Para asegurar transparencia y la obtención de las mejores condiciones del mercado, el número de ofertas requeridas está regulado de forma estricta:</p>
+            <ul style="color: var(--muted); padding-left: 20px; display: flex; flex-direction: column; gap: 6px;">
+              <li><strong>Compras menores a $10,000.00 M.N.:</strong> Será suficiente una sola cotización formal.</li>
+              <li><strong>Compras mayores a $10,000.00 M.N.:</strong> Requisito indispensable solicitar tres cotizaciones para la adquisición de un bien mueble, con base a los requerimientos del proyecto, las cuales deben ser comparables entre sí.</li>
+              <li><strong>Comité Evaluador:</strong> Se integra un comité evaluador de 3 personas que en un plazo de 3 días hábiles revisa y evalúa las propuestas para seleccionar a través de un acta de evaluación de candidatos, misma que será firmada por al menos uno de los evaluadores.</li>
+              <li><strong>La adjudicación directa:</strong> Debe estar debidamente justificada en un acta de adjudicación. El acta de adjudicación directa deberá ser revisada y firmada por la directora de programas y, en caso de contratos superiores a $200,000 por el director ejecutivo.</li>
+            </ul>
+
+            <details style="margin-top: 14px;">
+              <summary>🗺️ Ver Flujograma de Adquisición de Bienes</summary>
+              <div class="dropdown-content" style="text-align: center; padding: 10px 0;">
+                <p style="text-align: left; font-size: 0.85rem; color: var(--muted); margin-top: 0; margin-bottom: 12px;">Mapa gráfico para el seguimiento secuencial del proceso de compra y validación de bienes muebles:</p>
+                <img src="diagrama_flujo_adquisicion_bienes.jpg" alt="Flujograma de Adquisición de Bienes" style="max-width: 100%; height: auto; border-radius: 12px; box-shadow: var(--shadow-sm); border: 1px solid var(--border); background-color: #fff;">
+              </div>
+            </details>
+          </div>
+          <div>
+            <div class="alert-box" style="background: var(--info-bg); border-color: var(--info-border); color: var(--info-text); margin-top: 0;">
+              <strong>🛡️ Póliza de Seguro de Activos:</strong><br>
+              En el caso de cualquier bien mueble con un costo superior a los <strong>$100,000.00 M.N.</strong> deberá estar debidamente asegurado bajo la responsabilidad de la coordinación de administración.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Inciso C -->
+      <div class="step-card" id="inciso-c">
+        <span class="badge">C. Integración de Expedientes para Contratación</span>
+        <div class="grid-two">
+          <div>
+            <h3>Documentación Requerida del Candidato</h3>
+            <p style="color: var(--muted); margin-top: 0;">Es responsabilidad del coordinador de proyectos solicitar e integrar al expediente del concurso o adjudicación la documentación legal y fiscal vigente para formalizar la relación institucional.</p>
+            
+            <details open>
+              <summary>Lista de Documentos Obligatorios</summary>
+              <div class="dropdown-content">
+                <ul style="padding-left: 20px; font-size: 0.9rem; margin: 0; color: var(--muted); display: flex; flex-direction: column; gap: 4px;">
+                  <li><strong>Identificación Oficial:</strong> Identificación oficial vigente del candidato a profesionista o del representante legal.</li>
+                  <li><strong>Cuenta Bancaria:</strong> Carátula de estado de la cuenta bancaria a la que se realizarán los pagos correspondientes.</li>
+                  <li><strong>Personas Morales:</strong> Acta constitutiva y poder del representante legal en caso de persona moral.</li>
+                </ul>
+              </div>
+            </details>
+          </div>
+          <div>
+            <div class="alert-box" style="margin-top:0;">
+              <strong>📅 Vigencia Fiscal Estricta (Menor a 3 meses):</strong><br>
+              Tanto la <strong>Constancia de Situación Fiscal</strong> como la <strong>Opinión de Cumplimiento Fiscal</strong> adjuntas deben tener una antigüedad obligatoriamente menor a tres meses desde su fecha de emisión.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Inciso D -->
+      <div class="step-card" id="inciso-d">
+        <span class="badge">D. Formalización Jurídica y Firmas de Contrato</span>
+        <div class="grid-two">
+          <div>
+            <h3>Envío de Expediente y Flujo de Firmas</h3>
+            <p style="color: var(--muted); margin-top: 0;">El coordinador de proyectos o enlace externo integra y envía por correo electrónico al enlace jurídico y al analista financiero - contable un expediente del concurso o adjudicación.</p>
+            
+            <details open>
+              <summary>Pasos Clave para la Formalización</summary>
+              <div class="dropdown-content">
+                <ol style="padding-left: 20px; font-size: 0.9rem; margin: 0; display: flex; flex-direction: column; gap: 8px; color: var(--muted);">
+                  <li><strong>Expediente Completo:</strong> Contendrá el TDR con las autorizaciones, propuestas técnico-económicas con la documentación y el acta de evaluación o adjudicación con la firma del coordinador de proyectos o enlace externo. El analista financiero - contable archiva y resguarda dicho expediente.</li>
+                  <li><strong>Elaboración de Contrato:</strong> El enlace jurídico y el analista financiero - contable elaboran el contrato correspondiente en un plazo de 3 días hábiles.</li>
+                  <li><strong>Revisión Interna:</strong> La directora de programas, el coordinador de administración y el coordinador de proyectos revisan el contrato en un plazo de 2 días hábiles.</li>
+                  <li><strong>Registro:</strong> El analista financiero - contable integra el contrato a la Base de Datos de Control de Contratos.</li>
+                </ol>
+              </div>
+            </details>
+          </div>
+          <div>
+            <div class="alert-box" style="margin-top:0;">
+              <strong>✍️ Orden Obligatorio de Firmas:</strong><br>
+              Se firma el contrato en el siguiente orden estricto: a) directora de programas; b) coordinador de administración; c) director ejecutivo; d) profesionista. 
+              <br><br>Los contratos menores a $200,000 podrán ir firmados por el director ejecutivo, directora de programas o coordinador de administración, y el profesionista en un plazo de 5 días hábiles. Todo contrato mayor a $200,000.00 pesos deberá ser firmado por el director ejecutivo y el profesionista.
+            </div>
+
+            <div class="info-box" style="background: #f8fafc; border-color: var(--border); color: #334155;">
+              <strong>📍 Logística Geográfica de Firmas:</strong><br>
+              Si el profesionista radica en Quintana Roo, se requiere la firma autógrafa y presencial en las oficinas de la asociación en Cancún o Felipe Carrillo Puerto. Para profesionistas foráneos se requiere la firma autógrafa enviada por medio del servicio de mensajerías.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Inciso E -->
+      <div style="margin-top: -4px; margin-bottom: 28px; background: var(--card); border: 1px solid var(--border); border-radius: 24px; padding: 32px; box-shadow: var(--shadow-md);" id="inciso-e">
+        <h4 style="margin: 0 0 10px 0; color: #991b1b; font-size: 1.1rem; font-weight: 700;">E. ⚠️ Protocolo ante Opinión de Cumplimiento Negativa</h4>
+        <p style="font-size: 0.95rem; margin: 0 0 16px 0; color: var(--muted);">
+          En caso de que la opinión de cumplimiento fiscal del candidato sea en sentido negativo, la contratación podrá continuar siempre y cuando se cumplan estas condiciones de seguridad:
+        </p>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px;">
+          <div class="alert-box" style="margin-top:0; background: #fef2f2; border-color: #fca5a5; color: #991b1b; font-size: 0.88rem;">
+            <strong>🔍 Filtro Antifraude (Art. 69 y 69b del CFF):</strong><br>
+            No se encuentren dentro de los supuestos que señala el artículo 69 y 69b del Código Fiscal de la Federación vigentes relacionados con empresas que realizan operaciones simuladas o facturas apócrifas.
+          </div>
+
+          <div class="alert-box" style="margin-top:0; font-size: 0.88rem;">
+            <strong>📅 Límite de Declaraciones Atrasadas:</strong><br>
+            Que no tengan un atraso en la presentación de sus declaraciones fiscales por más de 6 meses.
+          </div>
+        </div>
+
+        <div class="info-box" style="background: #f0fdf4; border-color: #bbf7d0; color: #166534; margin-top: 16px; font-size: 0.88rem;">
+          <strong>📢 Control Interno:</strong> El analista financiero - contable avisará a la directora de programas y al enlace jurídico una vez que reciba el contrato con firma autógrafa.
+        </div>
+      </div>
+
+      <!-- Inciso F -->
+     <div class="step-card" id="inciso-f">
+        <span class="badge">F. Gestión de Pagos, Plataforma SURF y Tarjeta Institucional</span>
+        <div class="grid-two">
+          <div>
+            <h3>Trámite de Solicitudes y Requisitos de Pago</h3>
+            <p style="color: var(--muted); margin-top: 0;">La liberación de fondos para prestadores o adquisición de bienes está estrictamente regulada por la entrega de comprobantes fiscales y validaciones técnicas.</p>
+            
+            <details open>
+              <summary>Documentación Obligatoria para Pagos (SURF)</summary>
+              <div class="dropdown-content" style="color: var(--muted); display: flex; flex-direction: column; gap: 8px;">
+                <p style="margin: 0;"><strong>• Primer Pago:</strong> Condicionado a la entrega de un producto o servicio a través de una SURF que debe incluir el contrato firmado, la factura electrónica deducible en formato PDF y XML, y la carta de satisfacción técnica (Anexo 6) firmada por el coordinador de proyectos y la directora de programas.</p>
+                <p style="margin: 0;"><strong>• Pagos Subsecuentes:</strong> Programados en el contrato, solo se deberá incluir en la SURF la factura electrónica deducible en formato PDF y XML, y la carta de satisfacción técnica debidamente firmada por el coordinador de proyectos y la directora de programas.</p>
+                <p style="margin: 0;"><strong>• Bienes o Servicios Generales:</strong> Se solicita el pago para el que mejor cumpla con las condiciones técnicas, de calidad y de precio, justificándolo adecuadamente a través de una SURF y, en su caso, con el visto bueno de la directora de programas o la coordinación de administración.</p>
+              </div>
+            </details>
+
+            <details style="margin-top: 14px;">
+              <summary>🔑 Acceso a Plataforma y Altas de Proveedor</summary>
+              <div class="dropdown-content" style="font-size: 0.88rem; color: var(--muted);">
+                <p><strong>Portal Oficial SURF:</strong> Para ingresar a la plataforma SURF se utiliza el enlace <a href="http://189.206.164.249:9083/Siankaan-0.1/security/login" target="_blank" style="color: var(--accent); font-weight: 700; text-decoration: none; border-bottom: 1px solid var(--accent);">http://189.206.164.249:9083/Siankaan-0.1/security/login</a>, previa asignación de una contraseña por parte del coordinador de administración y/o analista financiero - contable.</p>
+                <p style="margin-bottom: 0;"><strong>Protocolo de Alta Simultánea:</strong> Al mismo tiempo que se requisita la SURF, se envía un correo electrónico al analista administrativo contable, para darlos de alta en el sistema de SURF, y al analista financiero - contable, para dar de alta en el portal bancario, con la carátula del estado de cuenta bancaria y los datos fiscales del profesionista.</p>
+              </div>
+            </details>
+
+            <details style="margin-top: 14px;">
+              <summary>🗺️ Ver Flujograma de Contratación de Prestadores de Servicios (PRO)</summary>
+              <div class="dropdown-content" style="text-align: center; padding: 10px 0;">
+                <p style="text-align: left; font-size: 0.85rem; color: var(--muted); margin-top: 0; margin-bottom: 12px;">Mapa gráfico para el seguimiento secuencial del ciclo operativo de contratación del profesionista:</p>
+                <img src="diagrama_flujo_contratacion.jpg" alt="Flujograma de Contratación PRO" style="max-width: 100%; height: auto; border-radius: 12px; box-shadow: var(--shadow-sm); border: 1px solid var(--border); background-color: #fff;">
+              </div>
+            </details>
+          </div>
+          <div>
+            <div class="alert-box" style="margin-top:0; background: #fef2f2; border-color: #fca5a5; color: #991b1b;">
+              <strong>🛑 Regla de Oro Financiera:</strong><br>
+              No se realizará ningún pago que carezca de la documentación indicada.
+            </div>
+
+            <div class="alert-box">
+              <strong>⏰ Calendario Bancario y Cierre Operativo:</strong><br>
+              Se realiza el pago los <strong>jueves y/o viernes</strong> de cada semana, siempre que la SURF cumpla con las políticas, se haya hecho a más tardar el <strong>martes inmediato anterior a las 11:59 PM</strong>, y el analista administrativo contable verifique que el importe esté de acuerdo con el contrato.
+            </div>
+
+            <div class="info-box" style="background: #f8fafc; border-color: var(--border); color: #334155;">
+              <strong>💳 Tarjeta de Crédito Institucional:</strong><br>
+              Para realizar pagos con la tarjeta de crédito institucional deberán enviar a la asistente de la dirección y al director ejecutivo el formato de pago con tarjeta de crédito (Anexo 8) y una guía de pasos para la aplicación del pago en el portal del proveedor.
+            </div>
+
+            <div style="font-size: 0.85rem; color: var(--muted); margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--border);">
+              <strong>Banca Electrónica:</strong> El analista administrativo contable y el coordinador de administración suben los pagos a los portales bancarios y envían la relación de pagos (Anexo 7), para su ejecución mancomunada, al director ejecutivo.
+              <li style="margin-top: 6px; list-style: none; padding-left: 14px; position: relative;">
+                <span style="position: absolute; left: 0; color: var(--accent);">•</span><strong>SURF RECHAZADA:</strong> Los miércoles aparecerá en el SURF si está rechazada o aceptada. En caso de rechazo se especificará el motivo que deberá ser solventado y se programará el pago para la siguiente semana.
+              </li>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Inciso G -->
+      <div class="step-card" id="inciso-g">
+        <span class="badge">G. Políticas de Control, Viáticos y Aseguramiento de Activos</span>
+        <div class="grid-two">
+          <div>
+            <h3>Uso de Tarjetas y Comprobación de Viáticos</h3>
+            <p style="color: var(--muted); margin-top: 0;">Para garantizar el orden contable y fiscal, el uso de las herramientas corporativas de pago y los fondos de transporte responden a pautas institucionales fijas.</p>
+            
+            <details open>
+              <summary>✈️ Reglas para Viajes y Comprobación de Gastos</summary>
+              <div class="dropdown-content">
+                <ul style="padding-left: 20px; font-size: 0.9rem; margin: 0; display: flex; flex-direction: column; gap: 8px; color: var(--muted);">
+                  <li><strong>Ajuste al Tabulador:</strong> Los gastos de viaje y transporte deberán ajustarse a lo estipulado en el tabulador de viajes, viáticos y gastos no permisibles anexo. Dichos pagos serán solicitados vía SURF a más tardar a las 11:59 PM del martes de cada semana.</li>
+                  <li><strong>Plazo de Comprobación:</strong> La comprobación de gastos deberá hacerse en un plazo máximo de <strong>7 días naturales</strong> después de haber concluido la actividad. No se aprobarán recursos adicionales hasta en tanto no se haya comprobado el recurso anterior.</li>
+                  <li><strong>Boletos de Avión:</strong> Para el caso de los boletos de avión es necesario que adjunte el pase de abordar, adicional a la factura.</li>
+                  <li><strong>Devolución de Efectivo:</strong> En caso de tener efectivo sobrante de los viáticos, es indispensable que dicho efectivo sea reintegrado en el penúltimo día del cierre del mes, en que se recibió como anticipo para gastos.</li>
+                </ul>
+              </div>
+            </details>
+
+            <details style="margin-top: 14px;">
+              <summary>⛽ Control de Combustible y Fondo Revolvente</summary>
+              <div class="dropdown-content" style="font-size: 0.88rem; color: var(--muted);">
+                <p>La compra de combustible se realizará a través de las tarjetas electrónicas que para ello entregará la coordinación de administración. Se realizará una dispersión de recursos de manera inicial a cada poseedor a manera de fondo revolvente.</p>
+                <p><strong>Responsabilidad del Usuario:</strong> Es responsabilidad de cada poseedor de una tarjeta electrónica el solicitar la reposición de su fondo revolvente mediante una SURF adjuntando el recibo de compra de combustible por la actividad correspondiente de cada proyecto.</p>
+                <p style="color: #991b1b; font-weight: 700; margin-bottom: 4px;">⚠️ Restricción de Dispersión:</p>
+                <p style="margin-top: 0;">No se dispersará a las tarjetas electrónicas el monto del combustible adquirido que carezca del recibo de compra correspondiente o que no se haya realizado por medios electrónicos, en cuyo caso deberá subirse una SURF con la factura deducible correspondiente en formato PDF y XML.</p>
+              </div>
+            </details>
+          </div>
+          <div>
+            <div class="alert-box" style="margin-top:0; background: #fef2f2; border-color: #fca5a5; color: #991b1b;">
+              <strong>🔒 Límite de Efectivo y Cuentas Bancarias ($2,000 M.N.):</strong><br>
+              Todo pago mayor a $2,000 se realizará única y exclusivamente a una cuenta bancaria a nombre del emisor de la factura correspondiente. No se harán pagos o reembolsos que no cumplan con esta condición. <strong>No se podrán fraccionar las facturas mayores a $2,000</strong>.
+            </div>
+
+            <div class="alert-box">
+              <strong>💳 Restricción de Tarjetas de Crédito:</strong><br>
+              Los pagos con la tarjeta de crédito institucional deberán hacerlo el director ejecutivo o la asistente de la dirección, previa autorización por escrito del director ejecutivo, con base en las respectivas SURF y el formato de pago. 
+              <br><br>No se podrán realizar pagos con otras tarjetas de crédito personales, a menos que, de manera excepcional y por causas plenamente justificadas, se cuente con autorización previa, por escrito del director ejecutivo o en su ausencia, de la directora de programas y la coordinación de administración.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN: DIAGRAMAS DE FLUJO -->
+   
+
+    <!-- SECCIÓN: TABULADORES -->
+    <section id="tabuladores">
+      <h2>Tabulador Oficial de Viajes y Viáticos</h2>
+      <p style="color: var(--muted); margin-top:-10px;">Límites máximos reembolsables autorizados para comisiones oficiales de proyectos.</p>
+      
+      <table>
+        <thead>
+          <tr>
+            <th>Concepto de Gasto</th>
+            <th>Límite Diario Permitido</th>
+            <th>Criterios de Comprobación y Restricciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Alimentos (Nacional)</strong></td>
+            <td>$750.00 M.N.</td>
+            <td>Tope sugerido distribuido en $250.00 por cada comida individual.</td>
+          </tr>
+          <tr>
+            <td><strong>Alimentos (Internacional)</strong></td>
+            <td>$1,500.00 M.N.</td>
+            <td>Sujeto a validación de comprobante fiscal extranjero equivalente.</td>
+          </tr>
+          <tr>
+            <td><strong>Hospedaje (Hotel)</strong></td>
+            <td>$2,000.00 M.N. por noche</td>
+            <td>Factura obligatoria desglosada a nombre de la asociación.</td>
+          </tr>
+          <tr>
+            <td><strong>Transportación (Taxis Terrestres)</strong></td>
+            <td>Aeropuerto-Hotel: $750.00<br>Hotel-Aeropuerto: $500.00</td>
+            <td>Se prioriza el uso de servicios ejecutivos de plataforma regulada.</td>
+          </tr>
+          <tr>
+            <td><strong>Combustibles y Gasolina</strong></td>
+            <td>Según asignación por ruta en litros</td>
+            <td><strong>Prohibido pago en efectivo.</strong> Debe solventarse con tarjeta digital. Rendimiento base estimado: 7 kilómetros por litro.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div style="margin-top: 28px; background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 24px; box-shadow: var(--shadow-md);">
+        <h3 style="margin-top: 0; margin-bottom: 16px; font-size: 1.1rem; color: var(--accent); display: flex; align-items: center; gap: 8px;">
+          ⛽ Desglose de Asignación de Combustible (Viaje Redondo en Litros)
+        </h3>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px;">
+          <div>
+            <h4 style="margin: 0 0 10px 0; color: #1e293b; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">Rutas desde Cancún</h4>
+            <table style="margin-top: 0; box-shadow: none;">
+              <thead>
+                <tr>
+                  <th>Destino (Viaje Redondo)</th>
+                  <th style="text-align: right; width: 100px;">Litros</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Playa del Carmen</td><td style="text-align: right; font-weight: bold; color: var(--accent);">22 L</td></tr>
+                <tr><td>Tulum</td><td style="text-align: right; font-weight: bold; color: var(--accent);">39 L</td></tr>
+                <tr><td>Felipe Carrillo Puerto</td><td style="text-align: right; font-weight: bold; color: var(--accent);">67 L</td></tr>
+                <tr><td>Chetumal</td><td style="text-align: right; font-weight: bold; color: var(--accent);">111 L</td></tr>
+                <tr><td>Mérida</td><td style="text-align: right; font-weight: bold; color: var(--accent);">89 L</td></tr>
+                <tr><td>Campeche</td><td style="text-align: right; font-weight: bold; color: var(--accent);">137 L</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div>
+            <h4 style="margin: 0 0 10px 0; color: #1e293b; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">Rutas desde Felipe Carrillo Puerto</h4>
+            <table style="margin-top: 0; box-shadow: none;">
+              <thead>
+                <tr>
+                  <th>Destino (Viaje Redondo)</th>
+                  <th style="text-align: right; width: 100px;">Litros</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Playa del Carmen</td><td style="text-align: right; font-weight: bold; color: var(--accent);">47 L</td></tr>
+                <tr><td>Tulum</td><td style="text-align: right; font-weight: bold; color: var(--accent);">29 L</td></tr>
+                <tr><td>Cancún</td><td style="text-align: right; font-weight: bold; color: var(--accent);">67 L</td></tr>
+                <tr><td>Chetumal</td><td style="text-align: right; font-weight: bold; color: var(--accent);">45 L</td></tr>
+                <tr><td>Mérida</td><td style="text-align: right; font-weight: bold; color: var(--accent);">78 L</td></tr>
+                <tr><td>Campeche</td><td style="text-align: right; font-weight: bold; color: var(--accent);">108 L</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="alert-box" style="margin-top: 28px;">
+        <strong>🚫 Conceptos estrictamente No Deducibles ni Reembolsables:</strong><br>
+        Compra de bebidas con contenido alcohólico, pago de propinas de cualquier tipo, multas de tránsito ordinarias, recargos por extemporaneidad o gastos recreativos de entretenimiento personal.
+      </div>
+    </section>
+
+    <!-- SECCIÓN: FACTURACIÓN -->
+    <section id="facturacion">
+      <h2>Datos Fiscales Institucionales</h2>
+      <p style="color: var(--muted); margin-top:-10px; margin-bottom:24px;">Use esta información exacta al requerir facturas de proveedores del proyecto:</p>
+      
+      <div class="fiscal-grid">
+        <div class="fiscal-card"><strong>Razón Social:</strong><br>AMIGOS DE SIAN KAAN</div>
+        <div class="fiscal-card"><strong>RFC:</strong><br>ASK8606053X2</div>
+        <div class="fiscal-card"><strong>Uso de CFDI:</strong><br>Gastos en General</div>
+        <div class="fiscal-card"><strong>Régimen Fiscal:</strong><br>603 - Personas Morales con Fines no Lucrativos</div>
+      </div>
+      
+      <div class="info-box" style="margin-top: 20px;">
+        <strong>📍 Domicilio Fiscal Completo:</strong> Calle Fuego, Manzana 10, Número 2, Planta Baja, Supermanzana 4, Cancún, Municipio de Benito Juárez, Quintana Roo, México. Código Postal 77500.
+      </div>
+    </section>
+
+    <section id="anexos">
+      <h2>Formatos y Anexos de Control Interno</h2>
+      <p style="color: var(--muted); margin-top:-10px; margin-bottom:24px;">Haga clic en cada elemento para descargar de forma directa las plantillas de Microsoft Office y documentación requerida.</p>
+      
+      <div class="download-grid">
+        <div class="download-card">
+          <div>
+            <strong style="display:block; color: #0f172a;">1. Términos de Referencia (TDR)</strong>
+            <small style="color: var(--muted); font-size: 0.8rem;">Formato oficial para requerimientos de contratación [cite: 190, 191]</small>
+          </div>
+          <a href="FORMATO_TDR.docx" download class="btn-download">Descargar</a>
+        </div>
+
+        <div class="download-card">
+          <div>
+            <strong style="display:block; color: #0f172a;">2. Especificaciones de Bienes (EPAB)</strong>
+            <small style="color: var(--muted); font-size: 0.8rem;">Formato oficial para adquisición de bienes muebles [cite: 190, 192]</small>
+          </div>
+          <a href="FORMATO_EPAB.docx" download class="btn-download">Descargar</a>
+        </div>
+
+        <div class="download-card">
+          <div>
+            <strong style="display:block; color: #0f172a;">3. Propuesta Técnico-Económica</strong>
+            <small style="color: var(--muted); font-size: 0.8rem;">Plantilla obligatoria para postulaciones de CPR [cite: 196, 197]</small>
+          </div>
+          <a href="PROPUESTA_TE.docx" download class="btn-download">Descargar</a>
+        </div>
+
+        <div class="download-card">
+          <div>
+            <strong style="display:block; color: #0f172a;">4. Acta de Evaluación de Candidatos</strong>
+            <small style="color: var(--muted); font-size: 0.8rem;">Uso de comités para dictamen de concursos [cite: 198, 199]</small>
+          </div>
+          <a href="ACTA_EVALUACION.docx" download class="btn-download">Descargar</a>
+        </div>
+
+        <div class="download-card">
+          <div>
+            <strong style="display:block; color: #0f172a;">5. Acta de Adjudicación Directa</strong>
+            <small style="color: var(--muted); font-size: 0.8rem;">Justificación obligatoria para asignación directa [cite: 198, 200]</small>
+          </div>
+          <a href="ADJUDICACION_DIRECTA.docx" download class="btn-download">Descargar</a>
+        </div>
+
+        <div class="download-card">
+          <div>
+            <strong style="display:block; color: #0f172a;">6. Contrato de Prestación de Servicios</strong>
+            <small style="color: var(--muted); font-size: 0.8rem;">Modelo jurídico pre-aprobado para PSP [cite: 201, 202]</small>
+          </div>
+          <a href="CONTRATO_PSP.docx" download class="btn-download">Descargar</a>
+        </div>
+
+        <div class="download-card">
+          <div>
+            <strong style="display:block; color: #0f172a;">7. Formato de Contrato de SIB</strong>
+            <small style="color: var(--muted); font-size: 0.8rem;">Modelo legal pre-aprobado institucional [cite: 201, 203]</small>
+          </div>
+          <a href="CONTRATO_SIB.docx" download class="btn-download">Descargar</a>
+        </div>
+
+        <div class="download-card">
+          <div>
+            <strong style="display:block; color: #0f172a;">8. Contratos de Proyectos</strong>
+            <small style="color: var(--muted); font-size: 0.8rem;">Base del sistema de control de contratos [cite: 204, 205]</small>
+          </div>
+          <a href="BD_CONTRATOS.xlsm" download class="btn-download">Descargar</a>
+        </div>
+
+        <div class="download-card">
+          <div>
+            <strong style="display:block; color: #0f172a;">9. Carta de Satisfacción Técnica</strong>
+            <small style="color: var(--muted); font-size: 0.8rem;">Cierre de entregables para liberación de pago [cite: 206, 207]</small>
+          </div>
+          <a href="CARTA_SATISFACCION.DOCX" download class="btn-download">Descargar</a>
+        </div>
+
+        <div class="download-card">
+          <div>
+            <strong style="display:block; color: #0f172a;">10. Formato de Relación de Pagos</strong>
+            <small style="color: var(--muted); font-size: 0.8rem;">Anexo de control de movimientos bancarios [cite: 208, 209]</small>
+          </div>
+          <a href="7. Formato de relación de pagos.DOCX" download class="btn-download">Descargar</a>
+        </div>
+
+        <div class="download-card">
+          <div>
+            <strong style="display:block; color: #0f172a;">11. Solicitud para Pago con TC</strong>
+            <small style="color: var(--muted); font-size: 0.8rem;">Formato obligatorio para uso de tarjeta institucional [cite: 210, 211]</small>
+          </div>
+          <a href="SOLICITUD_PAGO_TC.docx" download class="btn-download">Descargar</a>
+        </div>
+
+        <div class="download-card">
+          <div>
+            <strong style="display:block; color: #0f172a;">12. Solicitud de Boleto de Avión</strong>
+            <small style="color: var(--muted); font-size: 0.8rem;">Formato de requisición para transporte aéreo [cite: 210, 212]</small>
+          </div>
+          <a href="SOLICITUD_BOLETO_AVION.docx" download class="btn-download">Descargar</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Amigos de Sian Ka'an A.C. · Operativo de Estandarización de Procesos Administrativos 2026
+  </footer>
+
+</body>
+</html>
